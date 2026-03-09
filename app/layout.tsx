@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Space_Mono, Syne } from "next/font/google";
+import { Space_Grotesk, Space_Mono, Syne, Inter } from "next/font/google";
 import "./globals.css";
 import { cookies } from "next/headers";
 import { jwtVerify } from "jose";
@@ -20,6 +20,12 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-space-mono",
+});
+
+const inter = Inter({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -53,7 +59,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${spaceMono.variable} ${syne.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${spaceMono.variable} ${syne.variable} ${inter.variable} antialiased`}
       >
         <Navbar user={user} />
         {children}

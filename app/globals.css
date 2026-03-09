@@ -11,6 +11,7 @@
   --font-sans: var(--font-space-grotesk);
   --font-mono: var(--font-space-mono);
   --font-title: var(--font-syne);
+  --font-bdy: var(--font-inter);
 }
 
 @media (prefers-color-scheme: dark) {

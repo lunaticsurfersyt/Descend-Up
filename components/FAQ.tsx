@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FiPlus, FiMinus } from "react-icons/fi";
+import AnimatedButton from "./Button";
 
 const faqs = [
   {
@@ -29,56 +31,75 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" style={{ background: "#111" }} className="py-20 px-10">
-      <div className="max-w-5xl mx-auto grid gap-20" style={{ gridTemplateColumns: "320px 1fr" }}>
+    <section id="faq" className="py-20 px-10 bg-black font-sans">
+      <div className="w-full flex items-start justify-between mx-auto  gap-20">
         {/* Left */}
-        <div>
-          <div className="inline-block bg-yellow-400 text-black text-xs font-extrabold tracking-widest uppercase px-3 py-1 mb-5">
+        <div className="w-1/2">
+          <div className="inline-block bg-[#F0B100] text-black text-[16px] font-bold tracking-widest uppercase px-3 py-1 mb-5">
             FAQ
           </div>
-          <h2 className="text-white mb-4" style={{ fontFamily: "'Oswald',sans-serif", fontSize: "36px", fontWeight: 700, lineHeight: 1.2 }}>
-            Everything you need to know before you scale
+          <h2 className="text-white mb-4 text-[48px] font-bold leading-15">
+            Everything you need <br /> to know before you <br /> scale
           </h2>
-          <p className="text-sm text-gray-500 leading-relaxed mb-7">
-            Growing on YouTube isn't luck. It's about understanding intent, metadata precision, and algorithm timing.
-            Here are the answers to the most common questions about how DescendUp helps creators grow smarter, faster, and more predictably.
+          <p className="text-[18px] text-[#A1A1A1] leading-7 mb-12">
+            Growing on YouTube isn't luck. It's about understanding intent,
+            metadata precision, and algorithm timing. Here are the answers to
+            the most common questions about how DescendUp helps creators grow
+            smarter, faster, and more predictably.
           </p>
-          <a href="#" className="inline-block border-2 border-white text-white text-xs font-bold tracking-widest uppercase px-5 py-2 no-underline hover:bg-white hover:text-black transition-colors">
-            CONTACT US
-          </a>
+          <AnimatedButton
+            text="CONTACT US"
+            color="white"
+            textStyle="text-[16.62px] text-black font-bold tracking-widest uppercase"
+            px={8}
+            py={3}
+            shadowColor="#ff0000"
+            onClick={() => {}}
+          />
         </div>
 
         {/* Right */}
-        <div className="divide-y divide-gray-800 border-t border-gray-800">
+        <div className="flex flex-col gap-4 w-1/2">
           {faqs.map((faq, i) => (
             <div key={i}>
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between py-5 text-left gap-4 bg-transparent border-0 cursor-pointer"
+                className={`w-full flex items-center justify-between p-5 text-left gap-4 ${open === i ? "bg-[#F0B100]" : "bg-transparent"}  border-[1.6px] border-[#3A3A3A] cursor-pointer`}
+                style={{ boxShadow: "6px 6px 0 #3a3a3a" }}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-gray-600 text-xs min-w-5">
-                    {["①","②","③","④","⑤"][i]}
-                  </span>
-                  <span className={`text-sm font-semibold ${open === i ? "text-yellow-400" : "text-white"} transition-colors`}>
+                  <p className="h-6 w-6 bg-black border-[1.6px] border-white text-sm font-bold flex items-center justify-center text-white rounded-full">
+                    {i + 1}
+                  </p>
+                  <span
+                    className={`text-[20px] font-bold ${open === i ? "text-black" : "text-white"} transition-colors duration-300`}
+                  >
                     {faq.q}
                   </span>
                 </div>
-                <div
-                  className="w-7 h-7 rounded-full border flex items-center justify-center flex-shrink-0 transition-all"
-                  style={{
-                    borderColor: open === i ? "#FFD700" : "#444",
-                    background: open === i ? "#FFD700" : "transparent",
-                  }}
-                >
-                  <motion.svg
-                    width="12" height="12" viewBox="0 0 24 24"
-                    fill={open === i ? "#000" : "#fff"}
-                    animate={{ rotate: open === i ? 45 : 0 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                  </motion.svg>
+                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all">
+                  <div className="relative w-6 h-6">
+                    {/* Plus Icon */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      animate={{ opacity: open === i ? 0 : 1 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <FiPlus
+                        size={32}
+                        strokeWidth={2}
+                        color={open === i ? "#000" : "#fff"}
+                      />
+                    </motion.div>
+                    {/* Minus Icon */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      animate={{ opacity: open === i ? 1 : 0 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <FiMinus size={24} color={open === i ? "#000" : "#fff"} />
+                    </motion.div>
+                  </div>
                 </div>
               </button>
 
@@ -91,8 +112,11 @@ export default function FAQ() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                     style={{ overflow: "hidden" }}
+                    className="mt-4 border-[1.6px] border-white"
                   >
-                    <p className="text-sm text-gray-400 leading-relaxed pb-5 pl-8">{faq.a}</p>
+                    <p className="text-sm text-[#E5E5E5] leading-relaxed p-4 text-[18px] font-medium font-bdy">
+                      {faq.a}
+                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>

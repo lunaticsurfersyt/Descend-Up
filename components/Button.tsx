@@ -9,6 +9,7 @@ type AnimatedButtonProps = {
   textStyle?: string;
   px?: number;
   py?: number;
+  shadowColor?: string;
   onClick?: () => void;
 };
 
@@ -18,15 +19,23 @@ export default function AnimatedButton({
   textStyle = "",
   px = 4,
   py = 2,
+  shadowColor = "black",
   onClick,
 }: AnimatedButtonProps) {
   return (
     <div className="relative inline-block">
       {/* Shadow (Fixed) */}
-      <div
-        className="absolute inset-0 translate-x-1 translate-y-1 bg-black"
-        style={{ border: "3px solid black" }}
-      />
+      {text === "CONTACT US" ? (
+        <div
+          className="absolute inset-0 translate-x-2 translate-y-2"
+          style={{ border: "3px solid black", background: "grey" }}
+        />
+      ) : (
+        <div
+          className="absolute inset-0 translate-x-1 translate-y-1"
+          style={{ border: "3px solid black", background: "black" }}
+        />
+      )}
 
       {/* Animated Button */}
       <motion.button
