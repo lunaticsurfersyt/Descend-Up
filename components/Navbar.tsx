@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
 import Link from "next/link";
+import Image from "next/image";
 
 declare global {
   interface Window {
@@ -18,6 +19,13 @@ export default function Navbar({ user }: any) {
   const logout = async () => {
     await fetch("/api/logout", { method: "POST" });
     router.refresh();
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
@@ -61,23 +69,24 @@ export default function Navbar({ user }: any) {
   }, [user, router]);
 
   return (
-    <nav className="font-sans flex items-center justify-between p-4 border-b-[3px] border-black">
+    <nav className="bg-white z-50 font-sans flex items-center justify-between p-4 border-b-[3px] border-black">
       <Link href="/" className="flex items-center gap-1">
-        <h1 className="text-[27.19px] font-medium uppercase">
-          descend
-          <span className="text-[#ff0000]">up</span>
-        </h1>
+        <Image src="/logo.svg" alt="DescendUp Logo" width={163} height={32} />
       </Link>
       <ul className="flex gap-12 list-none">
         {["The Flow", "Core Features", "Early Access Program", "FAQ"].map(
           (item) => (
             <li key={item}>
-              <Link
+              <a
                 href={`#${item.toLowerCase().replace(/ /g, "-")}`}
-                className="tracking-widest uppercase text-black no-underline hover:text-red-600 transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(item.toLowerCase().replace(/ /g, "-"));
+                }}
+                className="text-[18px] tracking-widest uppercase text-black no-underline hover:text-red-600 transition-colors cursor-pointer"
               >
                 {item}
-              </Link>
+              </a>
             </li>
           ),
         )}
