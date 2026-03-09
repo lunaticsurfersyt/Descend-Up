@@ -68,6 +68,20 @@ export default function Navbar({ user }: any) {
           <span className="text-[#ff0000]">up</span>
         </h1>
       </Link>
+      <ul className="flex gap-12 list-none">
+        {["The Flow", "Core Features", "Early Access Program", "FAQ"].map(
+          (item) => (
+            <li key={item}>
+              <Link
+                href={`#${item.toLowerCase().replace(/ /g, "-")}`}
+                className="tracking-widest uppercase text-black no-underline hover:text-red-600 transition-colors"
+              >
+                {item}
+              </Link>
+            </li>
+          ),
+        )}
+      </ul>
       <div className="flex gap-4">
         <Button
           text="ANALYSE MY CHANNEL"

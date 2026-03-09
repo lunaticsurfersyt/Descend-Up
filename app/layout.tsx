@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Space_Mono } from "next/font/google";
+import { Space_Grotesk, Space_Mono, Syne } from "next/font/google";
 import "./globals.css";
 import { cookies } from "next/headers";
 import { jwtVerify } from "jose";
@@ -8,6 +8,12 @@ import Navbar from "@/components/Navbar";
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
+});
+
+const syne = Syne({
+  weight: ["400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-syne",
 });
 
 const spaceMono = Space_Mono({
@@ -47,7 +53,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${spaceMono.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${spaceMono.variable} ${syne.variable} antialiased`}
       >
         <Navbar user={user} />
         {children}
