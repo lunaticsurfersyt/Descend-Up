@@ -44,9 +44,13 @@ export default function AnimatedButton({
           damping: 15,
         }}
         onClick={onClick}
-        className={`relative px-${px} py-${py} font-extrabold uppercase tracking-wide border-[3px] border-black ${textStyle}`}
+        className={`relative font-extrabold uppercase tracking-wide border-[3px] border-black ${textStyle}`}
         style={{
           backgroundColor: color,
+          paddingLeft: `${px * 0.25}rem`,
+          paddingRight: `${px * 0.25}rem`,
+          paddingTop: `${py * 0.25}rem`,
+          paddingBottom: `${py * 0.25}rem`,
         }}
       >
         {text.split("\n").map((line, i) => (
