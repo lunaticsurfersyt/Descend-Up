@@ -77,7 +77,7 @@ export default function FoundingCreator() {
               color="red"
               px={30}
               py={5}
-              onClick={() => router.push("/dashboard")}
+              onClick={() => router.push("/analyse")}
               textStyle="text-[30px] text-white font-bold"
             />
             <div className="w-full flex flex-col items-center justify-center py-8 gap-3">

@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Space_Mono, Syne, Inter } from "next/font/google";
+import { Space_Grotesk, Space_Mono, Syne, Inter, Geist } from "next/font/google";
 import "./globals.css";
 import { cookies } from "next/headers";
 import { jwtVerify } from "jose";
 import Navbar from "@/components/Navbar";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -57,7 +60,7 @@ export default async function RootLayout({
   console.log("User in layout:", user);
 
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body
         className={`${spaceGrotesk.variable} ${spaceMono.variable} ${syne.variable} ${inter.variable} antialiased`}
       >

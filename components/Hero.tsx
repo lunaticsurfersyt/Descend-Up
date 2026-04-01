@@ -1,10 +1,12 @@
-import React from "react";
+"use client";
 import Title from "./Title";
 import Image from "next/image";
 import Button from "./Button";
 import { IoCheckmarkCircle } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
+  const router = useRouter();
   return (
     <div className="p-10 flex w-full justify-center font-sans">
       <div className="w-5/8">
@@ -29,6 +31,9 @@ const Hero = () => {
             text={`Analyse my \n channel`}
             color="#ff0000"
             textStyle="text-white text-2xl"
+            onClick={() => {
+              router.push("/analyse");
+            }}
             px={16}
             py={4}
           />

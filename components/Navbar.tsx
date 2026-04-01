@@ -95,7 +95,7 @@ export default function Navbar({ user }: any) {
         <Button
           text="ANALYSE MY CHANNEL"
           color="blue"
-          onClick={() => router.push("/dashboard")}
+          onClick={() => router.push("/analyse")}
           textStyle="text-[10.62px] text-white"
         />
         {user ? (

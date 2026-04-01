@@ -6,10 +6,10 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get("session")?.value;
 
   // Protect these routes
-  const protectedPaths = ["/dashboard", "/profile", "/admin"];
+  const protectedPaths = ["/dashboard", "/profile", "/admin", "/analyse"];
 
   const isProtected = protectedPaths.some((path) =>
-    request.nextUrl.pathname.startsWith(path)
+    request.nextUrl.pathname.startsWith(path),
   );
 
   if (!isProtected) {
@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   try {
@@ -35,10 +35,15 @@ export async function middleware(request: NextRequest) {
 
     return NextResponse.next();
   } catch {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*", "/admin/:path*"],
+  matcher: [
+    "/dashboard/:path*",
+    "/profile/:path*",
+    "/admin/:path*",
+    "/analyse/:path*",
+  ],
 };
