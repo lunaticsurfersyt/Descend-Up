@@ -77,7 +77,12 @@ export default function FoundingCreator() {
               color="red"
               px={30}
               py={5}
-              onClick={() => router.push("/analyse")}
+              onClick={() => {
+                window.open(
+                  process.env.NEXT_PUBLIC_PRO_URL as string,
+                  "_blank",
+                );
+              }}
               textStyle="text-[30px] text-white font-bold"
             />
             <div className="w-full flex flex-col items-center justify-center py-8 gap-3">
