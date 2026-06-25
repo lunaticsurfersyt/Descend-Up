@@ -1,0 +1,20 @@
+CREATE TABLE "users" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"email" text NOT NULL,
+	"name" text,
+	"image" text,
+	"googleId" text,
+	"plan" text DEFAULT 'free' NOT NULL,
+	"stripeCustomerId" text,
+	"youtubeChannelId" text,
+	"youtubeChannelTitle" text,
+	"youtubeChannelThumbnail" text,
+	"googleAccessToken" text,
+	"googleRefreshToken" text,
+	"googleTokenExpiresAt" timestamp,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "users_email_unique" UNIQUE("email"),
+	CONSTRAINT "users_googleId_unique" UNIQUE("googleId"),
+	CONSTRAINT "users_stripeCustomerId_unique" UNIQUE("stripeCustomerId")
+);

@@ -7,6 +7,9 @@ export async function POST() {
     httpOnly: true,
     expires: new Date(0),
     path: "/",
+
+    domain:
+      process.env.NODE_ENV === "production" ? ".descendup.com" : undefined,
   });
 
   return response;

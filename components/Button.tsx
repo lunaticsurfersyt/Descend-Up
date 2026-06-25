@@ -7,6 +7,7 @@ type AnimatedButtonProps = {
   text: string;
   color?: string;
   textStyle?: string;
+  disabled?: boolean;
   px?: number;
   py?: number;
   shadowColor?: string;
@@ -21,6 +22,7 @@ export default function AnimatedButton({
   py = 2,
   shadowColor = "black",
   onClick,
+  disabled = false,
 }: AnimatedButtonProps) {
   return (
     <div className="relative inline-block">
@@ -53,6 +55,7 @@ export default function AnimatedButton({
           damping: 15,
         }}
         onClick={onClick}
+        disabled={disabled}
         className={`relative font-extrabold uppercase tracking-wide border-[3px] border-black ${textStyle}`}
         style={{
           backgroundColor: color,
