@@ -11,7 +11,7 @@ export default async function Home() {
   const user = await getUser();
 
   if (user) {
-    redirect("http://localhost:3001");
+    redirect(process.env.NEXT_PUBLIC_PRO_URL!);
   }
   return (
     <>
