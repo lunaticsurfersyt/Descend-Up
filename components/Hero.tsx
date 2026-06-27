@@ -32,7 +32,8 @@ const Hero = () => {
               text={`Analyse my \n channel`}
               color="#ff0000"
               textStyle="text-white text-2xl"
-              paddingClass="px-6 py-4"
+              px={6}
+              py={4}
               onClick={() => {
                 router.push("/analyse");
               }}
@@ -43,7 +44,8 @@ const Hero = () => {
               text={`Analyse my channel`}
               color="#ff0000"
               textStyle="text-white text-2xl"
-              paddingClass="px-6 py-4"
+              px={6}
+              py={4}
               onClick={() => {
                 router.push("/analyse");
               }}

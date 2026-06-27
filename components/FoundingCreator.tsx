@@ -97,7 +97,8 @@ export default function FoundingCreator() {
                 text={`CLAIM EARLY ACCESS`}
                 color="#ff0000"
                 textStyle="text-white text-xl"
-                paddingClass="px-8 py-4"
+                px={8}
+                py={4}
                 onClick={() => {
                   window.open(
                     process.env.NEXT_PUBLIC_PRO_URL as string,

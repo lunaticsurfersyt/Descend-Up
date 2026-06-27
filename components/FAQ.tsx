@@ -57,7 +57,6 @@ export default function FAQ() {
             text="CONTACT US"
             color="white"
             textStyle="text-sm sm:text-base lg:text-[16px] text-black font-bold tracking-widest uppercase"
-            className="w-full"
             px={8}
             py={3}
             shadowColor="#ff0000"
