@@ -11,6 +11,7 @@ import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import { getUser } from "@/lib/auth";
 import Footer from "@/components/Footer";
+import { Toaster } from "sonner";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -64,6 +65,7 @@ export default async function RootLayout({
       >
         <Navbar user={user} />
         {children}
+        <Toaster richColors position="top-right" />
         <Footer />
       </body>
     </html>

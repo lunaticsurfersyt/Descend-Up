@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiPlus, FiMinus } from "react-icons/fi";
 import AnimatedButton from "./Button";
+import { toast } from "sonner";
 
 const faqs = [
   {
@@ -29,7 +30,26 @@ const faqs = [
 
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
+  const [copying, setCopying] = useState(false);
 
+  const handleCopyEmail = async () => {
+    const email = "descendupmarketing@gmail.com";
+
+    try {
+      await navigator.clipboard.writeText(email);
+
+      toast.custom((t) => (
+        <div
+          className="bg-[#fffcc7] text-black font-extrabold uppercase tracking-widest px-12 py-4 border-4 border-black shadow-[6px_6px_0px_#000] cursor-pointer"
+          onClick={() => toast.dismiss(t)}
+        >
+          EMAIL COPIED
+        </div>
+      ));
+    } catch (err) {
+      toast.error("Failed to copy email");
+    }
+  };
   return (
     <section
       id="faq"
@@ -60,7 +80,7 @@ export default function FAQ() {
             px={8}
             py={3}
             shadowColor="#ff0000"
-            onClick={() => {}}
+            onClick={handleCopyEmail}
           />
         </div>
 
