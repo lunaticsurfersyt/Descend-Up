@@ -20,7 +20,6 @@ export default async function Home() {
       <CoreFeatures />
       <FoundingCreator />
       <FAQ />
-      <Footer />
     </>
   );
 }

@@ -31,26 +31,33 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-20 px-10 bg-black font-sans">
-      <div className="w-full flex items-start justify-between mx-auto  gap-20">
+    <section
+      id="faq"
+      className="py-16 lg:py-20 px-4 sm:px-6 lg:px-10 bg-black font-sans"
+    >
+      <div className="w-full flex flex-col lg:flex-row items-start justify-between mx-auto gap-10 lg:gap-20">
         {/* Left */}
-        <div className="w-1/2">
-          <div className="inline-block bg-[#F0B100] text-black text-[16px] font-bold tracking-widest uppercase px-3 py-1 mb-5">
+        <div className="w-full lg:w-1/2">
+          <div className="inline-block bg-[#F0B100] text-black text-sm sm:text-base font-bold tracking-widest uppercase px-3 py-1 mb-5">
             FAQ
           </div>
-          <h2 className="text-white mb-4 text-[48px] font-bold leading-15">
+
+          <h2 className="text-white mb-4 text-3xl sm:text-4xl lg:text-[48px] font-bold leading-tight">
             Everything you need <br /> to know before you <br /> scale
           </h2>
-          <p className="text-[18px] text-[#A1A1A1] leading-7 mb-12">
+
+          <p className="text-sm sm:text-base lg:text-lg text-[#A1A1A1] leading-relaxed mb-10 lg:mb-12">
             Growing on YouTube isn't luck. It's about understanding intent,
             metadata precision, and algorithm timing. Here are the answers to
             the most common questions about how DescendUp helps creators grow
             smarter, faster, and more predictably.
           </p>
+
           <AnimatedButton
             text="CONTACT US"
             color="white"
-            textStyle="text-[16.62px] text-black font-bold tracking-widest uppercase"
+            textStyle="text-sm sm:text-base lg:text-[16px] text-black font-bold tracking-widest uppercase"
+            className="w-full"
             px={8}
             py={3}
             shadowColor="#ff0000"
@@ -58,48 +65,47 @@ export default function FAQ() {
           />
         </div>
 
-        {/* Right */}
-        <div className="flex flex-col gap-4 w-1/2">
+        {/* Right (FAQ) - NOW bottom on mobile */}
+        <div className="flex flex-col gap-4 w-full lg:w-1/2">
           {faqs.map((faq, i) => (
             <div key={i}>
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className={`w-full flex items-center justify-between p-5 text-left gap-4 ${open === i ? "bg-[#F0B100]" : "bg-transparent"}  border-[1.6px] border-[#3A3A3A] cursor-pointer`}
+                className={`w-full flex items-center justify-between p-4 sm:p-5 text-left gap-4 border border-[#3A3A3A] cursor-pointer ${
+                  open === i ? "bg-[#F0B100]" : "bg-transparent"
+                }`}
                 style={{ boxShadow: "6px 6px 0 #3a3a3a" }}
               >
                 <div className="flex items-center gap-3">
-                  <p className="h-6 w-6 bg-black border-[1.6px] border-white text-sm font-bold flex items-center justify-center text-white rounded-full">
+                  <p className="h-6 w-6 flex items-center justify-center bg-black border border-white text-xs font-bold text-white rounded-full">
                     {i + 1}
                   </p>
+
                   <span
-                    className={`text-[20px] font-bold ${open === i ? "text-black" : "text-white"} transition-colors duration-300`}
+                    className={`text-base lg:text-xl font-bold transition-colors duration-300 ${
+                      open === i ? "text-black" : "text-white"
+                    }`}
                   >
                     {faq.q}
                   </span>
                 </div>
-                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all">
-                  <div className="relative w-6 h-6">
-                    {/* Plus Icon */}
-                    <motion.div
-                      className="absolute inset-0 flex items-center justify-center"
-                      animate={{ opacity: open === i ? 0 : 1 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <FiPlus
-                        size={32}
-                        strokeWidth={2}
-                        color={open === i ? "#000" : "#fff"}
-                      />
-                    </motion.div>
-                    {/* Minus Icon */}
-                    <motion.div
-                      className="absolute inset-0 flex items-center justify-center"
-                      animate={{ opacity: open === i ? 1 : 0 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <FiMinus size={24} color={open === i ? "#000" : "#fff"} />
-                    </motion.div>
-                  </div>
+
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <motion.div
+                    animate={{ opacity: open === i ? 0 : 1 }}
+                    transition={{ duration: 0.25 }}
+                    className="absolute"
+                  >
+                    <FiPlus size={24} color={open === i ? "#000" : "#fff"} />
+                  </motion.div>
+
+                  <motion.div
+                    animate={{ opacity: open === i ? 1 : 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="absolute"
+                  >
+                    <FiMinus size={20} color={open === i ? "#000" : "#fff"} />
+                  </motion.div>
                 </div>
               </button>
 
@@ -112,9 +118,9 @@ export default function FAQ() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                     style={{ overflow: "hidden" }}
-                    className="mt-4 border-[1.6px] border-white"
+                    className="mt-4 border border-white"
                   >
-                    <p className="text-sm text-[#E5E5E5] leading-relaxed p-4 text-[18px] font-medium font-bdy">
+                    <p className="p-4 text-sm lg:text-lg text-[#E5E5E5] leading-relaxed font-medium">
                       {faq.a}
                     </p>
                   </motion.div>

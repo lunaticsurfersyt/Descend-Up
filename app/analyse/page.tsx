@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   LineChart,
@@ -13,7 +12,6 @@ import {
   BarChart,
   Bar,
 } from "recharts";
-import ReactMarkdown from "react-markdown"; // Add this import for rich text rendering
 import Button from "@/components/Button";
 
 type Video = {
@@ -53,101 +51,78 @@ export default function AnalysePage() {
   const [channelId, setChannelId] = useState("");
   const [data, setData] = useState<ChannelData | null>(null);
   const [analysing, setAnalysing] = useState(false);
-  const [chatInput, setChatInput] = useState("");
-  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
-  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const fetchChannelData = async () => {
     if (!channelId.trim()) return;
 
     try {
       setAnalysing(true);
-
       const res = await fetch(`/api/youtube/full?channelId=${channelId}`);
-
       const json = await res.json();
-
       setData(json);
-      console.log(json);
-    } catch (error) {
-      console.error(error);
     } finally {
       setAnalysing(false);
     }
   };
 
-  const handleChat = async () => {
-    if (!chatInput) return;
-
-    const res = await fetch("/api/gemini", {
-      method: "POST",
-      body: JSON.stringify({
-        message: chatInput,
-        context: data,
-      }),
-    });
-
-    const json = await res.json();
-
-    setChatHistory((prev) => [
-      ...prev,
-      { role: "user", text: chatInput },
-      { role: "bot", text: json.reply },
-    ]);
-
-    setChatInput("");
-  };
-
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
-    }
-  }, [chatHistory]);
-
   return (
-    <div className="min-h-screen bg-white text-black p-6">
+    <div className="min-h-screen bg-white text-black p-4 sm:p-6">
+      {/* Loader */}
       {analysing && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
-          <div className="flex flex-col items-center gap-6">
-            <div className="h-20 w-20 animate-spin rounded-full border-8 border-white border-t-[#DE0000]" />
-
-            <div className="text-3xl font-black uppercase text-white tracking-widest">
+          <div className="flex flex-col items-center gap-6 text-center">
+            <div className="h-16 w-16 sm:h-20 sm:w-20 animate-spin rounded-full border-8 border-white border-t-[#DE0000]" />
+            <div className="text-xl sm:text-3xl font-black uppercase text-white tracking-widest">
               Analysing Channel...
             </div>
           </div>
         </div>
       )}
+
       <div className="max-w-6xl mx-auto space-y-6">
-        <div className="bg-[#DE0000] p-10 border-4 border-black">
-          <h1 className="text-5xl font-bold font-title uppercase text-white">
+        {/* Header */}
+        <div className="bg-[#DE0000] p-6 sm:p-10 border-4 border-black">
+          <h1 className="text-3xl sm:text-5xl font-title font-bold uppercase text-white leading-tight">
             YouTube <br />
             Intelligence Dashboard
           </h1>
-          <div className="flex w-full items-center justify-center p-4 mt-4 border-4 border-black bg-[#E5EEFF] gap-4">
-            <div className="p-4 w-5/6 bg-white border-4 border-black">
+
+          {/* Input row */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mt-6 border-4 border-black bg-[#E5EEFF] p-4">
+            <div className="flex-1 bg-white border-4 border-black p-3">
               <Input
                 placeholder="Enter Channel ID or @handle"
                 value={channelId}
-                className="rounded-none bg-white py-4 border-0 shadow-none ring-0 outline-none focus:border-0 focus:ring-0 focus:outline-none focus-visible:border-0 focus-visible:ring-0 focus-visible:outline-none"
+                className="bg-white border-0 shadow-none focus-visible:ring-0"
                 onChange={(e) => setChannelId(e.target.value)}
               />
             </div>
-            <div className="w-1/6">
+
+            <div className="sm:w-1/5 w-full hidden sm:block">
               <Button
                 text={analysing ? "ANALYSING..." : "ANALYSE MY CHANNEL"}
                 color="black"
                 onClick={fetchChannelData}
                 disabled={analysing}
-                textStyle="text-[11.5px] text-white"
+                textStyle="text-xs sm:text-sm text-white"
+              />
+            </div>
+            <div className="md:hidden block">
+              <Button
+                text={analysing ? "ANALYSING..." : "ANALYSE MY CHANNEL"}
+                color="#000000"
+                textStyle="text-white text-lg"
+                paddingClass="px-6 py-4"
+                onClick={fetchChannelData}
               />
             </div>
           </div>
         </div>
+
         {data && (
           <>
-            {/* Stats Row */}
-            <div className="grid grid-cols-4 gap-4">
+            {/* Stats */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Stat
                 title="SUBSCRIBERS"
                 value={formatNumber(data.stats.subscriberCount)}
@@ -171,7 +146,7 @@ export default function AnalysePage() {
             </div>
 
             {/* Charts */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <Chart
                 title="VIEWS TREND"
                 data={data.analytics.trend}
@@ -188,10 +163,11 @@ export default function AnalysePage() {
               />
             </div>
 
-            {/* Bottom Row */}
-            <div className="grid grid-cols-3 gap-4">
+            {/* Bottom */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              {/* Top videos */}
               <div className="border-4 border-black bg-black text-white p-6">
-                <h2 className="text-2xl font-black uppercase mb-4">
+                <h2 className="text-xl sm:text-2xl font-black uppercase mb-4">
                   TOP VIDEOS
                 </h2>
 
@@ -205,8 +181,9 @@ export default function AnalysePage() {
                 ))}
               </div>
 
-              <div className="col-span-2 border-4 border-black bg-[#F3E06B] p-6">
-                <h2 className="text-4xl font-black uppercase mb-4">
+              {/* Insights */}
+              <div className="lg:col-span-2 border-4 border-black bg-[#F3E06B] p-6">
+                <h2 className="text-2xl sm:text-4xl font-black uppercase mb-4">
                   CHANNEL INSIGHTS
                 </h2>
 
@@ -220,11 +197,13 @@ export default function AnalysePage() {
               </div>
             </div>
           </>
-        )}{" "}
+        )}
       </div>
     </div>
   );
 }
+
+/* ---------- STAT ---------- */
 
 function Stat({
   title,
@@ -237,21 +216,24 @@ function Stat({
 }) {
   return (
     <div
-      className={`${bg} border-4 border-black p-6 min-h-[160px] flex flex-col justify-between`}
+      className={`${bg} border-4 border-black p-5 sm:p-6 min-h-[140px] flex flex-col justify-between`}
     >
-      <div className="text-sm font-bold uppercase tracking-widest">{title}</div>
-
-      <div className="text-2xl font-black wrap-break-words">{value}</div>
+      <div className="text-xs sm:text-sm font-bold uppercase tracking-widest">
+        {title}
+      </div>
+      <div className="text-xl sm:text-2xl font-black break-words">{value}</div>
     </div>
   );
 }
 
+/* ---------- CHART ---------- */
+
 function Chart({ title, data, dataKey, bar, bg }: any) {
   return (
     <div className={`${bg} border-4 border-black p-4`}>
-      <h2 className="font-black text-2xl uppercase mb-4">{title}</h2>
+      <h2 className="font-black text-xl sm:text-2xl uppercase mb-4">{title}</h2>
 
-      <ResponsiveContainer width="100%" height={250}>
+      <ResponsiveContainer width="100%" height={240}>
         {bar ? (
           <BarChart data={data}>
             <XAxis dataKey="date" />
@@ -264,7 +246,7 @@ function Chart({ title, data, dataKey, bar, bg }: any) {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line dataKey={dataKey} stroke="#DE0000" strokeWidth={4} />
+            <Line dataKey={dataKey} stroke="#DE0000" strokeWidth={3} />
           </LineChart>
         )}
       </ResponsiveContainer>

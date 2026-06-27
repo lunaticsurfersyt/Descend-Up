@@ -10,11 +10,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import { getUser } from "@/lib/auth";
+import Footer from "@/components/Footer";
 
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -66,6 +64,7 @@ export default async function RootLayout({
       >
         <Navbar user={user} />
         {children}
+        <Footer />
       </body>
     </html>
   );
