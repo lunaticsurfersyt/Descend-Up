@@ -112,7 +112,8 @@ export default function AnalysePage() {
                 text={analysing ? "ANALYSING..." : "ANALYSE MY CHANNEL"}
                 color="#000000"
                 textStyle="text-white text-lg"
-                paddingClass="px-6 py-4"
+                px={6}
+                py={4}
                 onClick={fetchChannelData}
               />
             </div>
